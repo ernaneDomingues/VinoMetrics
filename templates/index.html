@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto de API para Distribuição de Dados Vitivinícolas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        .main {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Projeto de API VinoMetrics para Distribuição de Dados Vitivinícolas</h1>
+        </div>
+    </header>
+    <div class="container main">
+        <h2>Descrição</h2>
+        <p>Este projeto desenvolve uma API utilizando FastAPI para fornecer dados detalhados sobre a produção, importação, exportação, comercialização e processamento de vinhos, sucos e derivados no Brasil. Os dados abrangem o período de 1970 até 2023, extraídos do site da Embrapa Uva e Vinho.</p>
+        
+        <h2>Funcionalidades</h2>
+        <ul>
+            <li><strong>Rotas modulares:</strong> A API está organizada em módulos, cada um responsável por um tipo específico de dados.</li>
+            <li><strong>Web Scraping:</strong> Os dados são extraídos diretamente de tabelas disponíveis online utilizando técnicas de web scraping.</li>
+            <li><strong>Persistência de Dados:</strong> Dados extraídos são armazenados e recuperados de um banco de dados PostgreSQL.</li>
+            <li><strong>Consultas Personalizadas:</strong> Permite consultas por ano inicial e final, além de filtros específicos para diferentes categorias de produtos.</li>
+        </ul>
+        
+        <h2>Estrutura do Projeto</h2>
+        <ul>
+            <li><strong>main.py:</strong> Arquivo principal que inicia a API e carrega todas as rotas.</li>
+            <li><strong>modules/</strong>
+                <ul>
+                    <li><strong>comercio.py:</strong> Rota para dados de comercialização de vinhos e derivados.</li>
+                    <li><strong>producao.py:</strong> Rota para dados de produção de vinhos, sucos e derivados.</li>
+                    <li><strong>processamento.py:</strong> Rota para dados de processamento de uvas.</li>
+                    <li><strong>importacao.py:</strong> Rota para dados de importação.</li>
+                    <li><strong>exportacao.py:</strong> Rota para dados de exportação.</li>
+                </ul>
+            </li>
+            <li><strong>services/</strong>
+                <ul>
+                    <li><strong>database.py:</strong> Classe para manipulação de operações com o banco de dados PostgreSQL.</li>
+                    <li><strong>extraction.py:</strong> Funções para extração e tratamento dos dados utilizando web scraping.</li>
+                </ul>
+            </li>
+            <li><strong>templates/</strong>
+                <ul>
+                    <li><strong>index.html:</strong> Página HTML estática com informações sobre o projeto.</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h2>Como Executar</h2>
+        <ol>
+            <li><strong>Clone o repositório:</strong>
+                <pre><code>git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio</code></pre>
+            </li>
+            <li><strong>Crie e ative um ambiente virtual:</strong>
+                <pre><code>python -m venv venv
+source venv/bin/activate</code></pre>
+            </li>
+            <li><strong>Instale as dependências:</strong>
+                <pre><code>pip install -r requirements.txt</code></pre>
+            </li>
+            <li><strong>Configure as variáveis de ambiente:</strong>
+                <pre><code>Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+HDATABASE=nome_do_banco
+HUSER=usuario_do_banco
+HPASSWORD=senha_do_banco
+HHOST=host_do_banco
+HPORT=porta_do_banco</code></pre>
+            </li>
+            <li><strong>Execute a API:</strong>
+                <pre><code>uvicorn main:app --reload</code></pre>
+            </li>
+            <li><strong>Acesse a API:</strong>
+                <pre><code>A API estará disponível em http://127.0.0.1:8000</code></pre>
+            </li>
+        </ol>
+        
+        <h2>Rotas Disponíveis</h2>
+        <ul>
+            <li><strong>GET /</strong>: Retorna a página HTML com informações sobre o projeto.</li>
+            <li><strong>GET /comercio/</strong>: Dados de comercialização. Parâmetros: <code>start_year</code>, <code>end_year</code>.</li>
+            <li><strong>GET /producao/</strong>: Dados de produção. Parâmetros: <code>start_year</code>, <code>end_year</code>.</li>
+            <li><strong>GET /processamento/</strong>: Dados de processamento de uvas. Parâmetros: <code>index</code>, <code>start_year</code>, <code>end_year</code>.</li>
+            <li><strong>GET /importacao/</strong>: Dados de importação. Parâmetros: <code>index</code>, <code>start_year</code>, <code>end_year</code>.</li>
+            <li><strong>GET /exportacao/</strong>: Dados de exportação. Parâmetros: <code>index</code>, <code>start_year</code>, <code>end_year</code>.</li>
+        </ul>
+        
+        <h2>Contribuição</h2>
+        <p>Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.</p>
+        
+        <h2>Licença</h2>
+        <p>Este projeto está licenciado sob a <a href="LICENSE">MIT License</a>.</p>
+    </div>
+    <footer>
+        <p>© 2024 Projeto de API para Distribuição de Dados Vitivinícolas</p>
+    </footer>
+</body>
+</html>
