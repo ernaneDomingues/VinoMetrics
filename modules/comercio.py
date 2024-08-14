@@ -17,6 +17,12 @@ YEAR = datetime.now().year - 1
 
 @router.get("/")
 def get_comercio(start_year: int, end_year: int = None):
+    """
+    Retorna os dados de comercialização de vinhos e derivados no Brasil.
+    
+    - **start_year**: Ano inicial da consulta (obrigatório).
+    - **end_year**: Ano final da consulta (opcional, se não fornecido, retorna dados somente do ano inicial).
+    """
     if end_year:
         if verify_url(URL_TEMPLATE[0].format(year=YEAR)):
             data = extract_table_all_data(URL_TEMPLATE[0], start_year, end_year)

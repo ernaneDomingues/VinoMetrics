@@ -18,7 +18,7 @@ app = FastAPI(
 )
 
 # Mount static files directory
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.post("/token")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -46,5 +46,10 @@ app.include_router(exportacao.router, prefix="/exportacao", tags=["Exportação"
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    with open("templates/index.html") as file:
+    """Rota principal
+    
+    Carrega uma página HTML estática.
+    Com uma descrição do projeto e da API
+    """
+    with open("templates/index.html", encoding="utf-8") as file:
         return file.read()
